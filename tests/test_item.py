@@ -5,9 +5,21 @@ item1 = Item("Телефон", 60000, 20)
 item2 = Item("Ноутбук", 28000, 5)
 
 
-def test_item():
-    assert item1.calculate_total_price() == 1200000
-    assert item2.calculate_total_price() == 140000
-    assert Item.all == ['Телефон', 'Ноутбук']
+def test_calculate_total_price():
+    assert Item.calculate_total_price(item1) == 1200000
+
+
+def test_apply_discout():
     Item.pay_rate = 0.8
-    assert item1.apply_discount() == 48000.0
+    assert item1.apply_discount() == 48000
+
+
+def test_string_to_number():
+    assert Item.string_to_number('10.0') == 10
+
+
+def test_instantiate_from_csv():
+    Item.instantiate_from_csv('../src/items.csv')
+    item2 = Item.all[0]
+    assert item2.name == 'Смартфон'
+    assert len(item2.all) == 5
