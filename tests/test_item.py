@@ -30,3 +30,8 @@ def test_instantiate_from_csv():
 def test_set_name():
     item1.name = 'Notebook'
     assert item1.name == 'Notebook'
+
+
+def test_repr():
+    assert repr(item1) == "Item('Телефон', 48000.0, 20)"
+
