@@ -35,3 +35,6 @@ def test_set_name():
 def test_repr():
     assert repr(item1) == "Item('Телефон', 48000.0, 20)"
 
+
+def test_str():
+    assert str(item1) == 'Телефон'
