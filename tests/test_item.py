@@ -16,10 +16,17 @@ def test_apply_discout():
 
 def test_string_to_number():
     assert Item.string_to_number('10.0') == 10
+    assert Item.string_to_number('10') == 10
+    assert Item.string_to_number('10.5') == 10
 
 
 def test_instantiate_from_csv():
-    Item.instantiate_from_csv('../src/items.csv')
+    Item.instantiate_from_csv('src/items.csv')
     item2 = Item.all[0]
     assert item2.name == 'Смартфон'
     assert len(item2.all) == 5
+
+
+def test_set_name():
+    item1.name = 'Notebook'
+    assert item1.name == 'Notebook'
