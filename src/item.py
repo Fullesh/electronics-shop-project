@@ -72,4 +72,3 @@ class Item:
                 item.price = price
                 item.quantity = quantity
                 cls.all.append(item)
-
