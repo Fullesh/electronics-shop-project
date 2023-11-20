@@ -43,3 +43,6 @@ def test_str():
     assert str(item1) == 'Notebook'
 
 
+def test_add():
+    assert item1 + phone1 == 25
+    assert item1 + 2131 == 'Невозможно сложить с экземплярами не Phone или Item классов'
