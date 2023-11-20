@@ -16,16 +16,20 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-        self.__name = name
+        self.name = name
         self.price = price
         self.quantity = quantity
 
     def __repr__(self):
-        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
 
     def __str__(self):
-        return f"{self.__name}"
+        return f"{self.name}"
 
+    def __add__(self, other):
+        if isinstance(other, self.__class__):
+            return self.quantity + other.quantity
+        return 'Невозможно сложить с экземплярами не Phone или Item классов'
     def calculate_total_price(self) -> float:
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
@@ -44,15 +48,15 @@ class Item:
 
     @property
     def get_name(self):
-        return self.__name
+        return self.name
 
     @get_name.setter
     def set_name(self, product_name_str):
         if len(product_name_str) > 10:
             print('Длина наименования товара превышает 10 символов')
-            self.__name = product_name_str[:10]
+            self.name = product_name_str[:10]
         else:
-            self.__name = product_name_str
+            self.name = product_name_str
 
     @staticmethod
     def string_to_number(number_string):
