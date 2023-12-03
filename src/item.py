@@ -1,4 +1,5 @@
 import csv
+import os
 
 
 class Item:
@@ -85,31 +86,26 @@ class Item:
         return int(float(number_string))
 
     @classmethod
-    def instantiate_from_csv(cls, directory):
+    def instantiate_from_csv(cls, file_csv: str = None) -> None:
         """
-        Получает список товаров с их данными из CSV файла
+        Инициализирующий экземпляры класса `Item` данными из файла _src/items.csv
         """
-        cls.all.clear()
+        if file_csv is None:
+            raise FileNotFoundError('Отсутствует файл item.csv')
         try:
-            with open(directory, 'r') as csv_file:
-                file = csv.DictReader(csv_file)
-                for i in file:
-                    name = i['name']
-                    price = float(i['price'])
-                    quantity = int(i['quantity'])
-                    item = cls(str, float, int)
-                    item.name = name
-                    item.price = price
-                    item.quantity = quantity
-        except FileNotFoundError:
-            return f'Отсутствует файл item.csv'
-        except ValueError:
-            raise InstantiateCSVError()
+            base_path = os.path.dirname(__file__)
+            file_path = os.path.join(base_path, file_csv)
+
+            cls.all.clear()
+
+            with open(file_path, newline='') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    Item(row['name'], float(row['price']), int(row['quantity']))
+        except KeyError:
+            raise InstantiateCSVError
 
 
 class InstantiateCSVError(Exception):
-    def __init__(self):
-        pass
-
-    def __str__(self):
-        return 'Файл item.csv повреждён'
+    def __init__(self, message="Файл item.csv поврежден"):
+        super().__init__(message)
